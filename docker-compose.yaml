@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres_container
+    environment:
+      POSTGRES_DB: BlogPostDB
+      POSTGRES_USER: BlogAdmin
+      POSTGRES_PASSWORD: Blog_Admin_Pwd_00
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
