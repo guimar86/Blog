@@ -8,5 +8,7 @@ public interface IBlog
     BlogPost CreateBlogPost(BlogPostCreateDTO blogPost);
     BlogPost UpdateBlogPost(BlogPost blogPost);
     List<BlogPostDTO> ListBlogPosts();
+
+    BlogPostDTO FindBlogPost(int id);
     void DeleteBlogPost(int blogPostId);
 }

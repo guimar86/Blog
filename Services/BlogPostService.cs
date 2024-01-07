@@ -49,6 +49,19 @@ public class BlogPostService : IBlog
         return _mapper.Map<List<BlogPostDTO>>(blogPosts);
     }
 
+    public BlogPostDTO FindBlogPost(int id)
+    {
+        var existingBlogPost = _dbContext.BlogPosts.FirstOrDefault(bp => bp.Id.Equals(id));
+        if (existingBlogPost == null)
+        {
+            _logger.LogError("User to find does not exist {id}", id);
+            throw new Exception("User to find does not exist");
+        }
+
+        var mappedBlogPost = _mapper.Map<BlogPostDTO>(existingBlogPost);
+        return mappedBlogPost;
+    }
+
     public void DeleteBlogPost(int blogPostId)
     {
         var existingBlog = _dbContext.BlogPosts.FirstOrDefault(bp => bp.Id.Equals(blogPostId));

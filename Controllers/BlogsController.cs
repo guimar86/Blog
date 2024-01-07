@@ -22,12 +22,20 @@ public class BlogsController : ControllerBase
         return Ok(_blogService.ListBlogPosts());
     }
 
+    [HttpGet]
+    [Route("{id:int}",Name = "BlogPostById")]
+    public IActionResult FindById([FromRoute] int id)
+    {
+        var existingBlogPost = _blogService.FindBlogPost(id);
+        return Ok(existingBlogPost);
+    }
+
     [HttpPost]
     public IActionResult CreateBlogPost([FromBody] BlogPostCreateDTO blogPostCreateDto)
     {
         var blogPost = _blogService.CreateBlogPost(blogPostCreateDto);
 
-        return Created("", blogPost);
+        return CreatedAtRoute("BlogPostById", new { id = blogPost.Id }, blogPost);
     }
 
     [HttpPut]

@@ -24,6 +24,19 @@ public class UserService : IUser
         return users;
     }
 
+    public UserDTO FindUser(int id)
+    {
+        var existingUser = _dbContext.Users.FirstOrDefault((u => u.Id.Equals(id)));
+        if (existingUser == null)
+        {
+            _logger.LogError("User to find does not exist {id}", id);
+            throw new Exception($"User does not exist {id}");
+        }
+
+        var mappedUser = _mapper.Map<UserDTO>(existingUser);
+        return mappedUser;
+    }
+
     public User CreateUser(UserCreateDTO user)
     {
         var userToSave = _mapper.Map<User>(user);
@@ -35,17 +48,15 @@ public class UserService : IUser
     public User UpdateUser(User user)
     {
         var existingUser = _dbContext.Users.FirstOrDefault(u => u.Id.Equals(user.Id));
-
         if (existingUser == null)
         {
             _logger.LogError("User does not exist {userId}", user.Id);
             throw new Exception("User does not exist");
         }
+
         _mapper.Map(user, existingUser);
-        
         _dbContext.Users.Update(existingUser);
         _dbContext.SaveChanges();
-
         return existingUser;
     }
 
@@ -57,7 +68,6 @@ public class UserService : IUser
             _logger.LogError("User does not exist {userId}", userId);
             throw new Exception("User does not exist ");
         }
-
         _dbContext.Users.Remove(existingUser);
         _dbContext.SaveChanges();
     }

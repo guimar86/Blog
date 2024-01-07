@@ -22,10 +22,19 @@ public class UsersController : ControllerBase
         return Ok(_userService.ListUsers());
     }
 
+    [HttpGet]
+    [Route("{id:int}", Name ="UserById" )]
+    public IActionResult FindById([FromRoute] int id)
+    {
+        var existingUser = _userService.FindUser(id);
+        return Ok(existingUser);
+    }
+
     [HttpPost]
     public IActionResult Create([FromBody] UserCreateDTO user)
     {
-        return Created("", _userService.CreateUser(user));
+        var createdUser = _userService.CreateUser(user);
+        return CreatedAtRoute("UserById", new { id = createdUser.Id }, createdUser);
     }
 
     [HttpPut]
