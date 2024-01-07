@@ -13,7 +13,6 @@ public class MapConfig : Profile
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<BlogPost, BlogPostDTO>().ReverseMap();
         CreateMap<BlogPost, BlogPostCreateDTO>().ReverseMap();
-
-        Console.WriteLine("MapConfig constructor executed");
+        CreateMap<BlogPost, BlogPost>();
     }
 }

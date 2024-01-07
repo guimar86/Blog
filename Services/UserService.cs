@@ -41,10 +41,7 @@ public class UserService : IUser
             _logger.LogError("User does not exist {userId}", user.Id);
             throw new Exception("User does not exist");
         }
-
-        _logger.LogInformation("Before mapping {user}",existingUser);
         _mapper.Map(user, existingUser);
-        _logger.LogInformation("After mapping {user}",existingUser);
         
         _dbContext.Users.Update(existingUser);
         _dbContext.SaveChanges();

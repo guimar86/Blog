@@ -15,6 +15,7 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString(("BlogDatabase"))));
 builder.Services.AddAutoMapper(typeof(MapConfig));
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IBlog, BlogPostService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
