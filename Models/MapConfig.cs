@@ -13,8 +13,14 @@ public class MapConfig : Profile
             .ForMember(dest => dest.CreatedAt,
                 opt => opt.Condition(src =>
                     (!src.CreatedAt.ToString(CultureInfo.InvariantCulture).Equals("0001-01-01T00:00:00"))));
-        CreateMap<User, UserDTO>().ReverseMap();
-        CreateMap<BlogPost, BlogPostDTO>().ReverseMap();
+        CreateMap<User, UserDTO>()
+            .ReverseMap()
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) // Ignore mapping for CreatedAt
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+        CreateMap<BlogPostDTO, BlogPost>()
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) // Ignore mapping for CreatedAt
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ReverseMap();
         CreateMap<BlogPost, BlogPostCreateDTO>().ReverseMap();
         CreateMap<BlogPost, BlogPost>()
             .ForMember(dest => dest.CreatedAt,

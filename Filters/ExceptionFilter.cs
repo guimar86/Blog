@@ -15,7 +15,10 @@ public class ExceptionFilter : IExceptionFilter
             Status = (int)HttpStatusCode.InternalServerError,
             Detail = context.Exception.Message
         };
-
+        if (context.Exception.InnerException != null)
+        {
+            problemDetails.Extensions["InnerException"] = context.Exception.InnerException.Message;
+        }
 
         context.Result = new JsonResult(problemDetails);
     }

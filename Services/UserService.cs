@@ -46,7 +46,7 @@ public class UserService : IUser
         return userToSave;
     }
 
-    public User UpdateUser(User user)
+    public User UpdateUser(UserDTO user)
     {
         var existingUser = _dbContext.Users.FirstOrDefault(u => u.Id.Equals(user.Id));
         if (existingUser == null)

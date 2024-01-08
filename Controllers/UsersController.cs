@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:int}", Name ="UserById" )]
+    [Route("{id:int}", Name = "UserById")]
     public IActionResult FindById([FromRoute] int id)
     {
         var existingUser = _userService.FindUser(id);
@@ -38,7 +38,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody] User user)
+    public IActionResult Update([FromBody] UserDTO user)
     {
         return Ok(_userService.UpdateUser(user));
     }

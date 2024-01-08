@@ -39,7 +39,7 @@ public class BlogsController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult UpdateBlogPost([FromBody] BlogPost blogPost)
+    public IActionResult UpdateBlogPost([FromBody] BlogPostDTO blogPost)
     {
         var updatedBlogPost = _blogService.UpdateBlogPost(blogPost);
         return Ok(updatedBlogPost);

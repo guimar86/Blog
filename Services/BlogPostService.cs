@@ -28,7 +28,7 @@ public class BlogPostService : IBlog
         return blogPostToSave;
     }
 
-    public BlogPost UpdateBlogPost(BlogPost blogPost)
+    public BlogPost UpdateBlogPost(BlogPostDTO blogPost)
     {
         var existingBlogPost = _dbContext.BlogPosts.FirstOrDefault(bp => bp.Id.Equals(blogPost.Id));
 

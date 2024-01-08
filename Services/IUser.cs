@@ -8,6 +8,6 @@ public interface IUser
     List<UserDTO> ListUsers();
     UserDTO FindUser(int id);
     User CreateUser(UserCreateDTO user);
-    User UpdateUser(User user);
+    User UpdateUser(UserDTO user);
     void DeleteUser(int userId);
 }

@@ -6,7 +6,7 @@ namespace BlogApi.Services;
 public interface IBlog
 {
     BlogPost CreateBlogPost(BlogPostCreateDTO blogPost);
-    BlogPost UpdateBlogPost(BlogPost blogPost);
+    BlogPost UpdateBlogPost(BlogPostDTO blogPost);
     List<BlogPostDTO> ListBlogPosts();
 
     BlogPostDTO FindBlogPost(int id);
