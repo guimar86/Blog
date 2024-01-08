@@ -1,6 +1,7 @@
-﻿using BlogApi.Models;
+﻿using System.Net;
 using BlogApi.Models.DTO;
 using BlogApi.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApi.Controllers;
@@ -23,7 +24,7 @@ public class BlogsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:int}",Name = "BlogPostById")]
+    [Route("{id:int}", Name = "BlogPostById")]
     public IActionResult FindById([FromRoute] int id)
     {
         var existingBlogPost = _blogService.FindBlogPost(id);
@@ -31,9 +32,27 @@ public class BlogsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateBlogPost([FromBody] BlogPostCreateDTO blogPostCreateDto)
+    public IActionResult CreateBlogPost([FromBody] CreateBlogPostRequest createBlogPostRequest,
+        [FromServices] IValidator<CreateBlogPostRequest> validator)
     {
-        var blogPost = _blogService.CreateBlogPost(blogPostCreateDto);
+        var results = validator.Validate(createBlogPostRequest);
+        if (!results.IsValid)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = (int)HttpStatusCode.BadRequest,
+                Detail = results.Errors.FirstOrDefault()?.ErrorMessage
+            };
+
+            foreach (var error in results.Errors)
+            {
+                problemDetails.Extensions.Add(error.PropertyName, error.ErrorMessage);
+            }
+
+            return BadRequest(problemDetails);
+        }
+
+        var blogPost = _blogService.CreateBlogPost(createBlogPostRequest);
 
         return CreatedAtRoute("BlogPostById", new { id = blogPost.Id }, blogPost);
     }

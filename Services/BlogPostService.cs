@@ -18,9 +18,9 @@ public class BlogPostService : IBlog
         _mapper = mapper;
     }
 
-    public BlogPost CreateBlogPost(BlogPostCreateDTO blogPost)
+    public BlogPost CreateBlogPost(CreateBlogPostRequest createBlogPost)
     {
-        var blogPostToSave = _mapper.Map<BlogPost>(blogPost);
+        var blogPostToSave = _mapper.Map<BlogPost>(createBlogPost);
         blogPostToSave.CreatedAt = DateTime.UtcNow;
         _dbContext.BlogPosts.Add(blogPostToSave);
         _dbContext.SaveChanges();

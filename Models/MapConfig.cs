@@ -21,7 +21,7 @@ public class MapConfig : Profile
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) // Ignore mapping for CreatedAt
             .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
             .ReverseMap();
-        CreateMap<BlogPost, BlogPostCreateDTO>().ReverseMap();
+        CreateMap<BlogPost, CreateBlogPostRequest>().ReverseMap();
         CreateMap<BlogPost, BlogPost>()
             .ForMember(dest => dest.CreatedAt,
                 opt => opt.Condition(src =>

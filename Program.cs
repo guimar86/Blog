@@ -2,6 +2,7 @@ using BlogApi.Data;
 using BlogApi.Filters;
 using BlogApi.Models;
 using BlogApi.Services;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MapConfig));
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IBlog, BlogPostService>();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
