@@ -21,6 +21,7 @@ public class BlogPostService : IBlog
     public BlogPost CreateBlogPost(BlogPostCreateDTO blogPost)
     {
         var blogPostToSave = _mapper.Map<BlogPost>(blogPost);
+        blogPostToSave.CreatedAt = DateTime.UtcNow;
         _dbContext.BlogPosts.Add(blogPostToSave);
         _dbContext.SaveChanges();
 
@@ -38,6 +39,7 @@ public class BlogPostService : IBlog
         }
 
         _mapper.Map(blogPost, existingBlogPost);
+        existingBlogPost.UpdatedAt = DateTime.UtcNow;
         _dbContext.BlogPosts.Update(existingBlogPost);
         _dbContext.SaveChanges();
         return existingBlogPost;
