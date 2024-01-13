@@ -13,7 +13,22 @@ services:
     networks:
       - my_network
 
+  keycloak:
+    image: keycloak/keycloak
+    ports:
+      - "8088:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: start-dev
+    volumes:
+      - keycloak_data:/opt/jboss/keycloak/standalone/data
+    networks:
+      - my_network
+
 networks:
   my_network:
     driver: bridge
 
+volumes:
+  keycloak_data:

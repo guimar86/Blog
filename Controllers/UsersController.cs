@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:int}", Name ="UserById" )]
+    [Route("{id:int}", Name = "UserById")]
     public IActionResult FindById([FromRoute] int id)
     {
         var existingUser = _userService.FindUser(id);
@@ -31,14 +31,14 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] UserCreateDTO user)
+    public IActionResult Create([FromBody] UserCreateDto user)
     {
         var createdUser = _userService.CreateUser(user);
         return CreatedAtRoute("UserById", new { id = createdUser.Id }, createdUser);
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody] User user)
+    public IActionResult Update([FromBody] UserDTO user)
     {
         return Ok(_userService.UpdateUser(user));
     }

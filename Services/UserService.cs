@@ -37,15 +37,16 @@ public class UserService : IUser
         return mappedUser;
     }
 
-    public User CreateUser(UserCreateDTO user)
+    public User CreateUser(UserCreateDto user)
     {
         var userToSave = _mapper.Map<User>(user);
+        userToSave.CreatedAt = DateTime.UtcNow;
         _dbContext.Users.Add(userToSave);
         _dbContext.SaveChanges();
         return userToSave;
     }
 
-    public User UpdateUser(User user)
+    public User UpdateUser(UserDTO user)
     {
         var existingUser = _dbContext.Users.FirstOrDefault(u => u.Id.Equals(user.Id));
         if (existingUser == null)
@@ -55,6 +56,7 @@ public class UserService : IUser
         }
 
         _mapper.Map(user, existingUser);
+        existingUser.UpdatedAt = DateTime.UtcNow;
         _dbContext.Users.Update(existingUser);
         _dbContext.SaveChanges();
         return existingUser;
@@ -68,6 +70,7 @@ public class UserService : IUser
             _logger.LogError("User does not exist {userId}", userId);
             throw new Exception("User does not exist ");
         }
+
         _dbContext.Users.Remove(existingUser);
         _dbContext.SaveChanges();
     }

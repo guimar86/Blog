@@ -2,6 +2,7 @@
 using BlogApi.Data;
 using BlogApi.Models;
 using BlogApi.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Services;
 
@@ -18,16 +19,20 @@ public class BlogPostService : IBlog
         _mapper = mapper;
     }
 
-    public BlogPost CreateBlogPost(BlogPostCreateDTO blogPost)
+    public BlogPost CreateBlogPost(CreateBlogPostRequest createBlogPost)
     {
-        var blogPostToSave = _mapper.Map<BlogPost>(blogPost);
+        var author = _dbContext.Users.FirstOrDefault(p => p.Id == createBlogPost.AuthorId) ??
+                     throw new Exception("Author does not exist");
+        var blogPostToSave = _mapper.Map<BlogPost>(createBlogPost);
+        blogPostToSave.CreatedAt = DateTime.UtcNow;
+        blogPostToSave.Author = author;
         _dbContext.BlogPosts.Add(blogPostToSave);
         _dbContext.SaveChanges();
 
         return blogPostToSave;
     }
 
-    public BlogPost UpdateBlogPost(BlogPost blogPost)
+    public BlogPost UpdateBlogPost(BlogPostDTO blogPost)
     {
         var existingBlogPost = _dbContext.BlogPosts.FirstOrDefault(bp => bp.Id.Equals(blogPost.Id));
 
@@ -38,6 +43,7 @@ public class BlogPostService : IBlog
         }
 
         _mapper.Map(blogPost, existingBlogPost);
+        existingBlogPost.UpdatedAt = DateTime.UtcNow;
         _dbContext.BlogPosts.Update(existingBlogPost);
         _dbContext.SaveChanges();
         return existingBlogPost;
@@ -45,7 +51,9 @@ public class BlogPostService : IBlog
 
     public List<BlogPostDTO> ListBlogPosts()
     {
-        var blogPosts = _dbContext.BlogPosts.ToList();
+        var blogPosts = _dbContext.BlogPosts
+            .Include(b => b.Author)
+            .ToList();
         return _mapper.Map<List<BlogPostDTO>>(blogPosts);
     }
 

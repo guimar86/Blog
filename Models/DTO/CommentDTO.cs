@@ -1,6 +1,6 @@
 namespace BlogApi.Models.DTO;
 
-public class CommentDTO
+public class CommentDto
 {
     public int Id { get; set; }
     public string Content { get; set; }
