@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] UserCreateDTO user)
+    public IActionResult Create([FromBody] UserCreateDto user)
     {
         var createdUser = _userService.CreateUser(user);
         return CreatedAtRoute("UserById", new { id = createdUser.Id }, createdUser);

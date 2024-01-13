@@ -18,6 +18,7 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MapConfig));
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IBlog, BlogPostService>();
+builder.Services.AddScoped<IComments, CommentService>();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
 

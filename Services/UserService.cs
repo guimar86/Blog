@@ -37,7 +37,7 @@ public class UserService : IUser
         return mappedUser;
     }
 
-    public User CreateUser(UserCreateDTO user)
+    public User CreateUser(UserCreateDto user)
     {
         var userToSave = _mapper.Map<User>(user);
         userToSave.CreatedAt = DateTime.UtcNow;

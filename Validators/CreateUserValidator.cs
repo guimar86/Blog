@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BlogApi.Validators;
 
-public class CreateUserValidator : AbstractValidator<UserCreateDTO>
+public class CreateUserValidator : AbstractValidator<UserCreateDto>
 {
     public CreateUserValidator()
     {

@@ -7,7 +7,7 @@ public interface IUser
 {
     List<UserDTO> ListUsers();
     UserDTO FindUser(int id);
-    User CreateUser(UserCreateDTO user);
+    User CreateUser(UserCreateDto user);
     User UpdateUser(UserDTO user);
     void DeleteUser(int userId);
 }
