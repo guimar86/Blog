@@ -1,10 +1,14 @@
 name: First Workflow
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
 jobs:
-  first-job:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print greeting
-        run: echo "Hello World"
-      - name: Print goodby
-        run: echo "Done - bye"
+      - name: Get code from repository
+        uses: actions/checkout@v3
+      - name: build code
+        run: dotnet build
