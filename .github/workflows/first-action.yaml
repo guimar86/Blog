@@ -13,7 +13,7 @@ jobs:
       - name: build code
         run: dotnet build BlogApi.csproj
       - name: Upload artifacts
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with:
           name: bin
           path: bin
