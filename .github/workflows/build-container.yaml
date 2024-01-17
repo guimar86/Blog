@@ -9,7 +9,7 @@ jobs:
       - name: build code
         run: dotnet build BlogApi.csproj
       - name: test code
-        run: dotnet test
+        run: dotnet test BlogApi.csproj
   docker-image:
     needs: test
     runs-on: ubuntu-latest
