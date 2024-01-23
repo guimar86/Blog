@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Get code from repository
         uses: actions/checkout@v3
+      - name: Check code version
+        run: dotnet --info
       - name: Test code
         run: dotnet test BlogApi.csproj
   deploy:
