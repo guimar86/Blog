@@ -18,6 +18,7 @@ jobs:
           name: bin
           path: bin/Debug/net7.0
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Get code from repository
