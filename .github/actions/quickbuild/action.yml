@@ -1,12 +1,17 @@
 name: 'Setup and Build .net'
 description: 'Setup .net core min v2 or the latest and build resources'
+inputs:
+  dotnet-version:
+    description: 'Dotnet version to be used to build'
+    required: false
+    default: '7.0'
 runs:
   using: 'composite'
   steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '7.0'
+        dotnet-version: inputs.dotnet-version
     - name: build code
       run: dotnet build BlogApi.csproj
       shell: bash
