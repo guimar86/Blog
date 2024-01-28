@@ -10,12 +10,8 @@ jobs:
     steps:
       - name: Get code from repository
         uses: actions/checkout@v3
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '7.0'
-      - name: build code
-        run: dotnet build BlogApi.csproj
+      - name: Setup and build .net
+        uses: ./.github/actions/quickbuild
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:

@@ -39,7 +39,7 @@ public class BlogPostService : IBlog
         if (existingBlogPost == null)
         {
             _logger.LogError("Blog to update does not exist {id}", blogPost.Id);
-            throw new Exception("Blog post does not exist");
+            throw new RecordNotFoundException("Blog post does not exist");
         }
 
         _mapper.Map(blogPost, existingBlogPost);
@@ -63,7 +63,7 @@ public class BlogPostService : IBlog
         if (existingBlogPost == null)
         {
             _logger.LogError("User to find does not exist {id}", id);
-            throw new Exception("User to find does not exist");
+            throw new RecordNotFoundException("User to find does not exist");
         }
 
         var mappedBlogPost = _mapper.Map<BlogPostDTO>(existingBlogPost);
@@ -76,7 +76,7 @@ public class BlogPostService : IBlog
         if (existingBlog == null)
         {
             _logger.LogError("Blog to delete does not exist {id}", blogPostId);
-            throw new Exception("Blog to delete does not exist");
+            throw new RecordNotFoundException("Blog to delete does not exist");
         }
 
         _dbContext.BlogPosts.Remove(existingBlog);
