@@ -30,7 +30,7 @@ public class UserService : IUser
         if (existingUser == null)
         {
             _logger.LogError("User to find does not exist {id}", id);
-            throw new Exception($"User does not exist {id}");
+            throw new RecordNotFoundException($"User does not exist {id}");
         }
 
         var mappedUser = _mapper.Map<UserDTO>(existingUser);
@@ -52,7 +52,7 @@ public class UserService : IUser
         if (existingUser == null)
         {
             _logger.LogError("User does not exist {userId}", user.Id);
-            throw new Exception("User does not exist");
+            throw new RecordNotFoundException("User does not exist");
         }
 
         _mapper.Map(user, existingUser);
@@ -68,7 +68,7 @@ public class UserService : IUser
         if (existingUser == null)
         {
             _logger.LogError("User does not exist {userId}", userId);
-            throw new Exception("User does not exist ");
+            throw new RecordNotFoundException("User does not exist ");
         }
 
         _dbContext.Users.Remove(existingUser);

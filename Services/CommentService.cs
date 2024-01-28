@@ -35,9 +35,9 @@ public class CommentService : IComments
     public async Task CreateComment(CreateCommentDto commentDto)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(p => p.Id.Equals(commentDto.Author)) ??
-                   throw new Exception("Invalid comment author");
+                   throw new RecordNotFoundException("Invalid comment author");
         var blog = await _dbContext.BlogPosts.FirstOrDefaultAsync(p => p.Id.Equals(commentDto.BlogPost)) ??
-                   throw new Exception("Invalid blog post");
+                   throw new RecordNotFoundException("Invalid blog post");
 
         var comment = _mapper.Map<Comment>(commentDto);
         comment.Author = user;
@@ -53,7 +53,7 @@ public class CommentService : IComments
                           .Include(a => a.Author)
                           .Include(b => b.BlogPost)
                           .FirstOrDefaultAsync(p => p.Id == id) ??
-                      throw new Exception("Comment does not exist");
+                      throw new RecordNotFoundException("Comment does not exist");
         _mapper.Map(commentDto, comment);
         comment.UpdatedAt = DateTime.UtcNow;
         _dbContext.Update(comment);
