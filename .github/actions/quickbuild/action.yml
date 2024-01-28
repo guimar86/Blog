@@ -4,6 +4,7 @@ inputs:
   dotnet-version:
     description: 'Dotnet version to be used to build'
     required: true
+    type: string
     default: '7.0'
 runs:
   using: 'composite'
