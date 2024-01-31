@@ -13,7 +13,7 @@ jobs:
       - name: Setup and build .net
         uses: ./.github/actions/quickbuild
         with:
-          dotnet-version: '7.x.x'
+          input-version: '7.x'
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
