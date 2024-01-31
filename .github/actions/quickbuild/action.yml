@@ -3,7 +3,7 @@ description: 'Setup .net core min v2 or the latest and build resources'
 inputs:
   input-version:
     description: 'Dotnet version to be used to build'
-    required: true
+    required: false
     type: string
     default: '6.0.201'
 runs:
